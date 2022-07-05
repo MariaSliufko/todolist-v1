@@ -3,23 +3,24 @@ const bodyParser = require('body-parser');
 
 const app = express(); //vi skapar en ny express applikation via const = app
 
-var items = ["Buy Food", "Cook Food", "Eat Food"]; //vi skapar en tom array";
+let items = ["Buy Food", "Cook Food", "Eat Food"]; //vi skapar en tom array";
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
 
 app.get("/", function(req, res) { //skapar en route via app.get som skickar användaren till en sida med hello när edn går till förstasidan. 
 
-    var today = new Date();
+    let today = new Date();
   
-    var options = {
+    let options = {
         weekday: 'long',
         day: 'numeric',
         month: 'long'
     };
 
-    var day = today.toLocaleDateString('sv-SE', options);
+    let day = today.toLocaleDateString('sv-SE', options);
    
 
      res.render("list", {kindOfDay: day, newListItems: items});
@@ -27,7 +28,7 @@ app.get("/", function(req, res) { //skapar en route via app.get som skickar anv�
     });
 
      app.post("/", function(req, res) {
-        var item = req.body.newItem;
+        let item = req.body.newItem;
 
         items.push(item);
         
