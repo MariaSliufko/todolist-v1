@@ -1,10 +1,11 @@
 const express = require('express'); //vi "require" dom 2vå paketen vi har laddat ner i terminalen
 const bodyParser = require('body-parser');
+const date = require(__dirname + "/date.js");
 
 const app = express(); //vi skapar en ny express applikation via const = app
 
-let items = ["Buy Food", "Cook Food", "Eat Food"]; //vi skapar en tom array";
-let workItems = []; 
+const items = ["Buy Food", "Cook Food", "Eat Food"]; //vi skapar en tom array";
+const workItems = []; 
 
 app.set('view engine', 'ejs');
 
@@ -13,16 +14,7 @@ app.use(express.static("public"));
 
 app.get("/", function(req, res) { //skapar en route via app.get som skickar användaren till en sida med hello när edn går till förstasidan. 
 
-    let today = new Date();
-  
-    let options = {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-    };
-
-    let day = today.toLocaleDateString('sv-SE', options);
-   
+    let day = date.getDate();
 
      res.render("list", {listTitle: day, newListItems: items});
 
